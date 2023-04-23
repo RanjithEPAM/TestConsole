@@ -132,6 +132,7 @@ namespace Practice
             Singleton objSingle = Singleton.getInstance();
             objSingle.book1Details();
             objSingle.book2Details();
+            
             #endregion
 
             #region
@@ -142,7 +143,7 @@ namespace Practice
             IProduct objPrd = objDeskBuilder.ReturnObject();
             objPrd.Shwodetails();
             */
-
+           
             Director director = new Director();
             LaptopBuilder Lapbuilder = new LaptopBuilder();
             DesktopBuilder deskBuilder = new DesktopBuilder();
@@ -152,7 +153,7 @@ namespace Practice
 
             prdDesktop.Shwodetails();
             prdLaptop.Shwodetails();
-
+            
             #endregion
         }
     }

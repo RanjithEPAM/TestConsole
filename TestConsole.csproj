@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DesignPatterns\**" />
+    <EmbeddedResource Remove="DesignPatterns\**" />
+    <None Remove="DesignPatterns\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.15" />
     <PackageReference Include="Selenium.WebDriver" Version="4.9.0" />
   </ItemGroup>
@@ -17,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DesignPatterns\DesignPatterns.csproj" />
+    <ProjectReference Include="DesignPatterns\DesignPatterns.csproj" />
   </ItemGroup>
 
 </Project>
