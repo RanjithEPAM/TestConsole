@@ -135,7 +135,7 @@ namespace Practice
             
             #endregion
 
-            #region
+            #region Builder Design Pattern
             /*
             DesktopBuilder objDeskBuilder = new DesktopBuilder();
             objDeskBuilder.CreateObject();
@@ -153,7 +153,6 @@ namespace Practice
 
             prdDesktop.Shwodetails();
             prdLaptop.Shwodetails();
-            
             #endregion
         }
     }
