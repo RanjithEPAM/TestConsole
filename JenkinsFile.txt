@@ -1,0 +1,46 @@
+﻿pipeline {
+    agent any
+    parameters{
+        string(name:'FATHER', 
+            defaultValue:'Vader',
+            description:'This is string')
+        choice(name:"TestSet",
+            choices:['API','UI', 'BACKEND', 'EXPORTER'])
+        booleanParam(name:'Run Tests',
+            defaultValue:false,
+            description:'Toggle to run tests')
+    }
+    environment{
+        MIN_SIZE = 1
+        MAX_SIZE =10
+    }
+    stages {
+        stage('Report') 
+        {
+            when{
+                expression{params.TestSet != 'BACKEND'}
+            }
+            steps {
+                echo "Hello world"
+                echo "$MIN_SIZE"
+                echo "$MAX_SIZE"
+            }
+        }
+        stage('Build') 
+        {
+            when{
+                expression{params.TestSet == 'BACKEND'}
+            }
+            environment{
+        MIN_SIZE = 10
+        MAX_SIZE =100
+    }
+            steps {
+                input message: 'Provide confirmation for BACKEND', ok: 'Deploy'
+                echo "Hello world"
+                echo "$MIN_SIZE"
+                echo "$MAX_SIZE"
+            }
+        }
+    }
+}
