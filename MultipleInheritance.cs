@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestConsole
 {
-    public interface IVehicle
+    public interface IVehicle1
     {
         void Method1();
     }
@@ -16,7 +16,7 @@ namespace TestConsole
         void Method2();
     }
 
-    public class Car : IAnimal, IVehicle
+    public class Car1 : IAnimal, IVehicle1
     {
         public void Method1()
         {

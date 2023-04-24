@@ -1,9 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using DesignPatterns;
 using DesignPatterns.BuilderPattern;
 using DesignPatterns.BuilderPattern.Desktop;
 using DesignPatterns.BuilderPattern.Laptop;
+using DesignPatterns.FactoryPattern;
+using DesignPatterns.DecoratorPattern;
+using DesignPatterns.Singleton;
 using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.Versioning;
@@ -12,7 +14,7 @@ using TestConsole;
 
 namespace Practice
 {
-    class Testing
+    public class Testing
     {
         public static void Main()
         {
@@ -26,6 +28,7 @@ namespace Practice
             Object1.addition(100, 200);
             Object1.addition(100.5, 200.5);
             #endregion
+            log.Info("Compile time polymorphism");
 
             #region Run Time Polymorphism
             Console.WriteLine("\n ****************   Run Time Polymorphism   ****************");
@@ -53,7 +56,7 @@ namespace Practice
 
             #region Mulitple Inheritance
             Console.WriteLine("\n ****************   Multiple Inheritance   ****************");
-            Car objectCar = new Car();
+            Car1 objectCar = new Car1();
             objectCar.Method1();
             objectCar.Method2();
             #endregion
@@ -153,6 +156,25 @@ namespace Practice
 
             prdDesktop.Shwodetails();
             prdLaptop.Shwodetails();
+            #endregion
+
+            #region Factory Pattern
+            Console.WriteLine("Enter the Vehicle Type");
+            string? type = Console.ReadLine();
+            IVehicle Type = VehicleFactory.GetVehicleType(type);
+            Console.WriteLine("Vehicle Type : " + Type.VehicleType());
+            Console.WriteLine("Number of wheels : " + Type.NumberOfWheels());
+            #endregion
+
+            #region Decorator pattern
+            ICarDeco objCar = new LuxuryCar();
+            //Wrp EconomyCar instancw with BasicAccessories.   
+            CarAccessoriesDecorator objAccessoriesDecorator = new BasicAccessories(objCar);
+            //Wrap EconomyCar instance with AdvancedAccessories instance.   
+            objAccessoriesDecorator = new AdvancedAccessories(objAccessoriesDecorator);
+            Console.WriteLine("Car Details: " + objAccessoriesDecorator.GetDescription());
+            Console.WriteLine("\n\n");
+            Console.WriteLine("Total Price: " + objAccessoriesDecorator.GetCost());
             #endregion
         }
     }

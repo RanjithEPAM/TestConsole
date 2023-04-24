@@ -7,7 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesignPatterns
+namespace DesignPatterns.Singleton
 {
     public class Singleton
     {
@@ -18,7 +18,7 @@ namespace DesignPatterns
             Console.WriteLine(counter.ToString());
             // to avoid instance creation from outside the class.   
         }
-        private static Singleton objInstance;
+        private static Singleton? objInstance;
         private static readonly object myLockObject = new object();
         public static Singleton getInstance()
         {
@@ -41,8 +41,5 @@ namespace DesignPatterns
         {
             return "Book name is - Testing Advanced";
         }
-
-
     }
-
 }
