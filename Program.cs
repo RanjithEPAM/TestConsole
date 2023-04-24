@@ -132,10 +132,15 @@ namespace Practice
 
 
             #region Singleton pattern
+            //Creational Design pattern
+            //It allows the class to create only one instance with global access to it
+            //Useful where shared resources or data
+            // it creates same oject evertyime it is called.
+
+
             Singleton objSingle = Singleton.getInstance();
             objSingle.book1Details();
             objSingle.book2Details();
-            
             #endregion
 
             #region Builder Design Pattern
@@ -146,6 +151,11 @@ namespace Practice
             IProduct objPrd = objDeskBuilder.ReturnObject();
             objPrd.Shwodetails();
             */
+            //creational design pattern
+            //this separates the construction of complex objects from its represenatation
+            //step by step process
+            //Involves creation of objects and its initialization
+            // Create, Initialize and Return objects
            
             Director director = new Director();
             LaptopBuilder Lapbuilder = new LaptopBuilder();
@@ -158,6 +168,13 @@ namespace Practice
             prdLaptop.Shwodetails();
             #endregion
 
+            //Creational design pattern
+            //It separates the instantiation logic
+            //It uses common interface which is inheriated by the class.
+            //It maintains the centralized objects creation
+            //DriverFactory - Switch - new object creation
+            //DriverManager - quit and createdriver methods
+
             #region Factory Pattern
             Console.WriteLine("Enter the Vehicle Type");
             string? type = Console.ReadLine();
@@ -167,6 +184,16 @@ namespace Practice
             #endregion
 
             #region Decorator pattern
+
+            /*
+             The Decorator pattern is a design pattern in object-oriented programming that allows behavior to be added to an individual object, either statically or dynamically, without affecting the behavior of other objects from the same class. It is a structural pattern that involves creating a decorator class that wraps the original class and provides additional functionality while maintaining the same interface as the original class. This pattern is useful for situations where it is necessary to add functionality to an object in a flexible and modular way, without creating a large number of subclasses.
+             */
+
+
+            //Implements Open/Closed principle
+            //Used for dynamically add an individual object without affecting the program correctness
+            //It avoid creation of large number of subclasses.
+
             ICarDeco objCar = new LuxuryCar();
             //Wrp EconomyCar instancw with BasicAccessories.   
             CarAccessoriesDecorator objAccessoriesDecorator = new BasicAccessories(objCar);
