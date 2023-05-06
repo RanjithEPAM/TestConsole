@@ -11,9 +11,16 @@ using System.Reflection;
 using System.Runtime.Versioning;
 using System.Security.Cryptography.X509Certificates;
 using TestConsole;
+using DesignPatterns.Learn;
+using TestConsole.Examples;
+using TestConsole.Delegates;
+using OpenQA.Selenium;
+using System.Configuration;
 
 namespace Practice
 {
+
+    
     public class Testing
     {
         public static void Main()
@@ -21,6 +28,8 @@ namespace Practice
             log4net.Config.BasicConfigurator.Configure();
             log4net.ILog log =  log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
             log.Info("Logging is started");
+
+            
 
             #region Compile Time Polymorphism
             Console.WriteLine("\n ****************   Compile Time Polymorphism   ****************");
@@ -97,6 +106,7 @@ namespace Practice
             Linq query = new Linq();
             query.listValidation();
             query.StudentListValidation();
+            
             #endregion
 
             #region Enum
@@ -135,13 +145,19 @@ namespace Practice
             //Creational Design pattern
             //It allows the class to create only one instance with global access to it
             //Useful where shared resources or data
-            // it creates same oject evertyime it is called.
+            // it creates same object every time it is called.
 
 
             Singleton objSingle = Singleton.getInstance();
             objSingle.book1Details();
             objSingle.book2Details();
             #endregion
+
+            //creational design pattern
+            //this separates the construction of complex objects from its represenatation
+            //step by step process
+            //Involves creation of objects and its initialization
+            // Create, Initialize and Return objects
 
             #region Builder Design Pattern
             /*
@@ -151,12 +167,8 @@ namespace Practice
             IProduct objPrd = objDeskBuilder.ReturnObject();
             objPrd.Shwodetails();
             */
-            //creational design pattern
-            //this separates the construction of complex objects from its represenatation
-            //step by step process
-            //Involves creation of objects and its initialization
-            // Create, Initialize and Return objects
-           
+
+
             Director director = new Director();
             LaptopBuilder Lapbuilder = new LaptopBuilder();
             DesktopBuilder deskBuilder = new DesktopBuilder();
@@ -203,6 +215,113 @@ namespace Practice
             Console.WriteLine("\n\n");
             Console.WriteLine("Total Price: " + objAccessoriesDecorator.GetCost());
             #endregion
+
+
+            #region LEarn
+            Dog dog = new Dog();
+            IAnimal11 dog1 = new Dog();
+            IAnimal11 cat = new Cat();
+            dog.animalSound();
+            dog1.animalSound();
+            cat.animalSound();
+
+            #endregion
+
+            #region Partial classes
+            Employee emp = new Employee(1001, "Kumar");
+            emp.displayInfo();
+            #endregion
+
+            #region Delegates main
+
+            #region Delegates
+            MyDelegate MyDel = ClassA.MethodA;
+            MyDel("Test Message Delegate");
+            MyDel.Invoke("Testing new invoke");
+            #endregion
+
+            #region Lambda Expression
+            Console.WriteLine("\n ****************   Lambda Expression    ****************");
+            Print print = (string mm) => Console.WriteLine("This is lambda" + mm);
+            print(" - *** Testing ");
+            #endregion
+
+            #region Function Delegate
+            Console.WriteLine("\n ****************   Function Delegate   ****************");
+            Func<int, int, int> add = sum;
+            int result = add(10,10);
+            Console.WriteLine("\n" + result);
+            #endregion
+
+            #region Action Delegate
+            Console.WriteLine("\n ****************   Action Delegate   ****************");
+            Action<int> actDel = Testing.consolePrint;
+            actDel(100);
+            #endregion
+
+            #region Predicate Delegate
+            Console.WriteLine("\n ****************   Predicate Delegate   ****************");
+            Predicate<string> IsUpper = IsUpperCase;
+            Console.WriteLine("Upper case validation : - " + IsUpper("HEllo"));
+            #endregion
+            #endregion
+
+            #region Extension Method
+            string sent = "This is beautiful day!";
+            Console.WriteLine("Count is - " + sent.strCount());
+            #endregion
+        }
+        public static bool IsUpperCase(string str)
+        {
+            return str.Equals(str.ToUpper());
+        }
+
+
+        public static void consolePrint(int num)
+        {
+            Console.WriteLine("Action Delegate - " + num);
+        }
+        
+
+        static int sum(int x, int y)
+        {
+            return x + y;
+        }
+
+        //static Func<int, int, int> DelName;
+
+        
+        
+    }
+    
+
+
+    delegate void Print(string m);
+    delegate void MyDelegate(string msg);
+
+    public class ClassA
+    {
+        public static void MethodA(string message)
+        {
+            Console.WriteLine("MethodA - " + message);
         }
     }
+    public class ClassB
+    {
+        public static void MethodB(string message)
+        {
+            Console.WriteLine("MethodB - " + message);
+        }
+    }
+
+    public static class StrOperations
+    {
+        public static int strCount(this string str)
+        {
+            char[] arr = { ',', ' ' };
+            int num = str.Split(arr,StringSplitOptions.RemoveEmptyEntries).Length;
+            return num;
+        }
+    }
+
 }
