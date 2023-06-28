@@ -16,11 +16,11 @@ using TestConsole.Examples;
 using TestConsole.Delegates;
 using OpenQA.Selenium;
 using System.Configuration;
+using TestConsole.Collections;
+using TestConsole.Exercises;
 
 namespace Practice
 {
-
-    
     public class Testing
     {
         public static void Main()
@@ -29,7 +29,23 @@ namespace Practice
             log4net.ILog log =  log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
             log.Info("Logging is started");
 
+            #region Method hiding
+            Console.WriteLine("\n ****************   Method Hiding   ****************");
+            MethodDerived derived = new MethodDerived();
+            MethodHiding mhiding = new MethodHiding();
             
+
+            MethodHiding mhide1 = new MethodDerived();
+            mhide1.TestMethod1();
+            mhide1.TestMethod();
+
+
+            MethodDerived derived2 = new MethodDerived();
+            derived2.TestMethod();
+            #endregion
+
+
+
 
             #region Compile Time Polymorphism
             Console.WriteLine("\n ****************   Compile Time Polymorphism   ****************");
@@ -105,7 +121,8 @@ namespace Practice
             Console.WriteLine("\n ****************   LINQ    ****************");
             Linq query = new Linq();
             query.listValidation();
-            query.StudentListValidation();
+            query.LINQValidation();
+            //query.StudentListValidation();
             
             #endregion
 
@@ -140,12 +157,17 @@ namespace Practice
             //auto.Launchbrowser();
             #endregion
 
-
-            #region Singleton pattern
             //Creational Design pattern
-            //It allows the class to create only one instance with global access to it
+            //It allows the class to create only one instance with global point of access to it
             //Useful where shared resources or data
             // it creates same object every time it is called.
+            /*
+            – In c# a static class cannot implement an interface. When a single instance class needs to implement an interface for some business reason or IoC purposes, you can use the Singleton pattern without a static class.
+            – You can clone the object of Singleton but, you can not clone the static class object
+            – Singleton object stores in Heap but, static object stores in stack
+            – A singleton can be initialized lazily or asynchronously while a static class is generally initialized when it is first loaded
+            */
+            #region Singleton pattern
 
 
             Singleton objSingle = Singleton.getInstance();
@@ -153,11 +175,12 @@ namespace Practice
             objSingle.book2Details();
             #endregion
 
-            //creational design pattern
+            //Builder design - creational design pattern
+            // Create, Initialize and Return objects
             //this separates the construction of complex objects from its represenatation
             //step by step process
             //Involves creation of objects and its initialization
-            // Create, Initialize and Return objects
+
 
             #region Builder Design Pattern
             /*
@@ -180,12 +203,12 @@ namespace Practice
             prdLaptop.Shwodetails();
             #endregion
 
-            //Creational design pattern
+            //Factory Pattern - Creational design pattern
             //It separates the instantiation logic
-            //It uses common interface which is inheriated by the class.
+            //It uses common interface which is inherited by the class.
             //It maintains the centralized objects creation
             //DriverFactory - Switch - new object creation
-            //DriverManager - quit and createdriver methods
+            //DriverManager - quit and Createdriver methods
 
             #region Factory Pattern
             Console.WriteLine("Enter the Vehicle Type");
@@ -198,7 +221,11 @@ namespace Practice
             #region Decorator pattern
 
             /*
-             The Decorator pattern is a design pattern in object-oriented programming that allows behavior to be added to an individual object, either statically or dynamically, without affecting the behavior of other objects from the same class. It is a structural pattern that involves creating a decorator class that wraps the original class and provides additional functionality while maintaining the same interface as the original class. This pattern is useful for situations where it is necessary to add functionality to an object in a flexible and modular way, without creating a large number of subclasses.
+             The Decorator pattern is a design pattern in object-oriented programming that allows behavior to be added to an individual object, either statically or dynamically, without affecting the behavior of other objects from the same class. 
+            
+            It is a structural pattern that involves creating a decorator class that wraps the original class and provides additional functionality while maintaining the same interface as the original class. 
+            
+            This pattern is useful for situations where it is necessary to add functionality to an object in a flexible and modular way, without creating a large number of subclasses.
              */
 
 
@@ -207,8 +234,14 @@ namespace Practice
             //It avoid creation of large number of subclasses.
 
             ICarDeco objCar = new LuxuryCar();
-            //Wrp EconomyCar instancw with BasicAccessories.   
+            //Wrap EconomyCar instance with BasicAccessories.   
             CarAccessoriesDecorator objAccessoriesDecorator = new BasicAccessories(objCar);
+            Console.WriteLine("Car Details: " + objAccessoriesDecorator.GetDescription());
+            Console.WriteLine("\n\n");
+            Console.WriteLine("Total Price: " + objAccessoriesDecorator.GetCost());
+
+
+
             //Wrap EconomyCar instance with AdvancedAccessories instance.   
             objAccessoriesDecorator = new AdvancedAccessories(objAccessoriesDecorator);
             Console.WriteLine("Car Details: " + objAccessoriesDecorator.GetDescription());
@@ -243,6 +276,7 @@ namespace Practice
             #region Lambda Expression
             Console.WriteLine("\n ****************   Lambda Expression    ****************");
             Print print = (string mm) => Console.WriteLine("This is lambda" + mm);
+            Print1 print1 = () => Console.WriteLine("This is lambda");
             print(" - *** Testing ");
             #endregion
 
@@ -270,6 +304,15 @@ namespace Practice
             string sent = "This is beautiful day!";
             Console.WriteLine("Count is - " + sent.strCount());
             #endregion
+
+            #region Collections
+            Console.WriteLine("\n ****************   Collections  ****************");
+            Sorted sorted = new Sorted();
+            sorted.Method1();
+            sorted.Method2();
+            sorted.Method3();
+            #endregion
+
         }
         public static bool IsUpperCase(string str)
         {
@@ -297,6 +340,7 @@ namespace Practice
 
 
     delegate void Print(string m);
+    delegate void Print1();
     delegate void MyDelegate(string msg);
 
     public class ClassA
@@ -324,4 +368,23 @@ namespace Practice
         }
     }
 
+    public class MethodDerived : MethodHiding
+    {
+
+        public new void TestMethod()
+        {
+            Console.WriteLine("This is a Test Derived Method");
+        }
+
+        public override void TestMethod1()
+        {
+            Console.WriteLine("This is a Override Method");
+            MethodDerived m1 = new MethodDerived();
+            m1.TestMethod();
+        }
+        
+        
+        
+
+    }
 }

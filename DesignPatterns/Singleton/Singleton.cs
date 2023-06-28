@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesignPatterns.FactoryPattern;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -9,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace DesignPatterns.Singleton
 {
-    public class Singleton
+    public class Singleton 
     {
         private static int counter = 0;
         private Singleton()
         {
             counter++;
             Console.WriteLine(counter.ToString());
-            // to avoid instance creation from outside the class.   
+            // to avoid instance creation from outside the class   
         }
         private static Singleton? objInstance;
         private static readonly object myLockObject = new object();
